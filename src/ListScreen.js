@@ -2,18 +2,20 @@ import React, { Component } from 'react'
 import { Text, View, AppRegistry } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import ToolBar from './ToolBar';
+import ListTab from './ListTab'
 
 export default class ListScreen extends Component {
   static navigationOptions = {
-    headerLeft: null,
-    title: 'Repository List',
-    headerRight: <ToolBar />
+    header: null
   }
   
   render() {
     return (
       <View>
-        <Text>Hello World</Text>
+        <ToolBar />
+        <View>
+          <ListTab />
+        </View>
       </View>
     )
   }
