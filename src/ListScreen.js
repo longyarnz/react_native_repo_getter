@@ -44,10 +44,11 @@ export default class ListScreen extends Component {
         duration: 1000,
         easing: Easing.bounce
       }
-    ).start();
-    if(x > y){
-      this.setState({ search: false });
-    }
+    ).start(() => {
+      if(x > y){
+        this.setState({ search: false });
+      }
+    });
   }
 
   componentDidMount() {
@@ -61,7 +62,7 @@ export default class ListScreen extends Component {
     });
 
     return (
-      <View>
+      <View style={{flex: 1}}>
         <SearchView marginTop={marginTop} search={this.handleSearch} />
         <ListTab repos={this.state.repos} />
       </View>

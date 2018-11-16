@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Platform, StyleSheet, Text, View, ActivityIndicator, AppRegistry
+  StyleSheet, Text, View, ActivityIndicator, AppRegistry
 } from 'react-native';
 import Repos from '../assets/repos.json';
 
@@ -16,7 +16,7 @@ export default class WelcomeScreen extends Component {
 
   schedule = () => {
     this.setState({ repos: Repos, loading: false });
-    this.props.navigation.navigate('Repository');
+    this.props.navigation.navigate('Repository', { repos: Repos });
   }
 
   timestamp = stamp => {
@@ -26,37 +26,47 @@ export default class WelcomeScreen extends Component {
   }
 
   async componentDidMount() {
-    if(this.state.repos.length > 0){
-      this.setState(
-        {repos, loading: false},
-        () => this.props.navigation.navigate('Repository', { repos: this.state.repos })
-      );
-      
-      return;
-    }
+    this.timeout = setTimeout(() => {
+      this.schedule();
+    }, 1000);
+    // if(this.state.repos.length > 0){
+    //   this.setState(
+    //     {repos, loading: false},
+    //     () => this.props.navigation.navigate('Repository', { repos: this.state.repos })
+    //   );
 
-    const response = await fetch('https://api.github.com/users/longyarnz/repos');
-    let repos = await response.json();
+    //   return;
+    // }
 
-    repos = repos.map(repo => ({
-      id: repo.id,
-      name: repo.name,
-      owner: repo.owner.login,
-      description: repo.description,
-      forks: repo.forks_count,
-      stargazers: repo.stargazers_count,
-      pushedAt: this.timestamp(repo.pushed_at),
-      language: repo.language
-    }));
+    // let repos = [];
+    // const response = await fetch('https://api.github.com/users/longyarnz/repos');
 
-    this.setState(
-      {repos, loading: false},
-      () => this.props.navigation.navigate('Repository', { repos: repos })
-    );
+    // if (response.status === 200){
+    //   repos = await response.json();
+    //   repos = repos.map(repo => ({
+    //     id: repo.id,
+    //     name: repo.name,
+    //     owner: repo.owner.login,
+    //     description: repo.description,
+    //     forks: repo.forks_count,
+    //     stargazers: repo.stargazers_count,
+    //     pushedAt: this.timestamp(repo.pushed_at),
+    //     language: repo.language
+    //   }));
+    // }
+
+    // else{
+    //   repos = Repos;
+    // }
+
+    // this.setState(
+    //   {repos, loading: false},
+    //   () => this.props.navigation.navigate('Repository', { repos: repos })
+    // );
   }
 
   componentWillUnmount = () => {
-    clearTimeout(this.schedule);
+    clearTimeout(this.timeout);
   }
 
 

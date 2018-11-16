@@ -8,7 +8,6 @@ export default class SearchView extends Component {
 
   handleSubmit = () => {
     const { text } = this.state;
-    alert(text);
     this.setState({text: ''}, () => this.props.search(text));
   }
 

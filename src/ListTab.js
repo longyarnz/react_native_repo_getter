@@ -28,7 +28,7 @@ export default class ListTab extends Component {
   }
 
   render() {
-    return (
+    return this.props.repos.length > 0 ? (
       <FlatList
         keyboardDismissMode="interactive"
         renderItem={this._renderTiles}
@@ -36,6 +36,10 @@ export default class ListTab extends Component {
         keyExtractor={item => item.id.toString()}
         style={{paddingBottom: 10,}}
       />
+    ) : (
+      <View style={styles.empty}>
+        <Text style={styles.emptyText}>NO ITEMS MATCH YOUR SEARCH</Text>
+      </View>
     )
   }
 }
@@ -69,6 +73,17 @@ const styles = StyleSheet.create({
   },
   pad: {
     fontSize: 10
+  },
+  empty: {
+    flex: 2,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    alignSelf: 'stretch'
+  },
+  emptyText: {
+    fontWeight: '900',
+    color: '#aaa',
+    fontSize: 18
   }
 })
 
