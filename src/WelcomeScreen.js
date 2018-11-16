@@ -50,7 +50,7 @@ export default class WelcomeScreen extends Component {
 
     let repos = [];
     try {
-      const response = await fetch(Package.git_link);
+      const response = await fetch(`https://api.github.com/users/${Package.git_user}/repos`);
 
       if (response.status === 200) {
         repos = await response.json();
@@ -78,7 +78,7 @@ export default class WelcomeScreen extends Component {
 
     this.setState(
       { repos, loading: false },
-      () => this.props.navigation.navigate('Repository', { repos: this.state.repos })
+      () => this.props.navigation.replace('Repository', { repos: this.state.repos })
     );
   }
 

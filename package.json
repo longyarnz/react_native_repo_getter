@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": false,
   "scripts": {
-    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "start": "react-native run-android",
     "test": "jest"
   },
   "dependencies": {
@@ -21,5 +21,5 @@
   "jest": {
     "preset": "react-native"
   },
-  "git_link": "https://api.github.com/users/emrys8/repos"
+  "git_user": "longyarnz"
 }
