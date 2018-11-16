@@ -64,7 +64,6 @@ export default class WelcomeScreen extends Component {
           pushedAt: this.timestamp(repo.pushed_at),
           language: repo.language
         }));
-        console.log(repos);
       }
 
       else {
@@ -72,7 +71,6 @@ export default class WelcomeScreen extends Component {
       }
     }
     catch(err){
-      console.log(err);
       repos = Repos;
     }
 
@@ -80,10 +78,6 @@ export default class WelcomeScreen extends Component {
       { repos, loading: false },
       () => this.props.navigation.replace('Repository', { repos: this.state.repos })
     );
-  }
-
-  componentWillUnmount = () => {
-    clearTimeout(this.timeout);
   }
 
   render() {

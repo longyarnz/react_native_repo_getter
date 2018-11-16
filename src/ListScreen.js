@@ -9,9 +9,7 @@ import ShouldRender from './ShouldRender';
 export default class ListScreen extends Component {
   constructor(props) {
     super(props)
-
     this.slideOffset = new Animated.Value(0);
-    this.rightOffset = new Animated.Value(0);
     this.state = {
       showFilterMenu: false,
       searchIsOpen: false,
@@ -112,9 +110,11 @@ export default class ListScreen extends Component {
     return (
       <View style={{ flex: 1 }}>
         <SearchBox offsets={{ marginTop, marginBottom }} search={this.handleSearch} />
+        
         <ShouldRender if={this.state.showFilterMenu}>
           <FilterBox filter={this.handleFilter} />
         </ShouldRender>
+
         <ListTiles 
           repos={this.state.repos} 
           close={() => this.slideDown(1, 0)} 
