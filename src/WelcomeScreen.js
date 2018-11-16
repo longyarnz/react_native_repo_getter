@@ -38,49 +38,53 @@ export default class WelcomeScreen extends Component {
   }
 
   async componentDidMount() {
-    this.timeout = setTimeout(() => {
-      this.schedule();
-    }, 1000);
-    // if(this.state.repos.length > 0){
-    //   this.setState(
-    //     {repos, loading: false},
-    //     () => this.props.navigation.navigate('Repository', { empty: this.state.repos.length === 0, repos: this.state.repos })
-    //   );
+    // this.timeout = setTimeout(() => {
+    //   this.schedule();
+    // }, 1000);
+    if (this.state.repos.length > 0) {
+      this.setState(
+        { repos, loading: false },
+        () => this.props.navigation.navigate('Repository', { empty: this.state.repos.length === 0, repos: this.state.repos })
+      );
 
-    //   return;
-    // }
+      return;
+    }
 
-    // let repos = [];
-    // const response = await fetch('https://api.github.com/users/longyarnz/repos');
+    let repos = [];
+    try {
+      const response = await fetch('https://api.github.com/users/longyarnz/repos');
 
-    // if (response.status === 200){
-    //   repos = await response.json();
-    //   repos = repos.map(repo => ({
-    //     id: repo.id,
-    //     name: repo.name,
-    //     owner: repo.owner.login,
-    //     description: repo.description,
-    //     forks: repo.forks_count,
-    //     stargazers: repo.stargazers_count,
-    //     pushedAt: this.timestamp(repo.pushed_at),
-    //     language: repo.language
-    //   }));
-    // }
+      if (response.status === 200) {
+        repos = await response.json();
+        repos = repos.map(repo => ({
+          id: repo.id,
+          name: repo.name,
+          owner: repo.owner.login,
+          description: repo.description,
+          forks: repo.forks_count,
+          stargazers: repo.stargazers_count,
+          pushedAt: this.timestamp(repo.pushed_at),
+          language: repo.language
+        }));
+      }
 
-    // else{
-    //   repos = Repos;
-    // }
+      else {
+        repos = Repos;
+      }
+    }
+    catch(err){
+      repos = Repos;
+    }
 
-    // this.setState(
-    //   {repos, loading: false},
-    //   () => this.props.navigation.navigate('Repository', { repos: this.state.repos })
-    // );
+    this.setState(
+      { repos, loading: false },
+      () => this.props.navigation.navigate('Repository', { repos: this.state.repos })
+    );
   }
 
   componentWillUnmount = () => {
     clearTimeout(this.timeout);
   }
-
 
   render() {
     return (

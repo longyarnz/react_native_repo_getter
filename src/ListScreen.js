@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View, AppRegistry, Animated, Easing } from 'react-native';
+import { View, AppRegistry, Animated, Easing } from 'react-native';
 import ToolBar from './ToolBar';
 import ListTiles from './ListTiles';
 import SearchBox from './SearchBox';
