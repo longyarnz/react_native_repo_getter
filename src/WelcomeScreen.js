@@ -19,8 +19,40 @@ export default class WelcomeScreen extends Component {
     this.props.navigation.navigate('Repository');
   }
 
+  timestamp = stamp => {
+    const date = stamp.toString().slice(0, 10);
+    const time = stamp.toString().slice(11, -1);
+    return `${date} (${time})`;
+  }
+
   async componentDidMount() {
-    setTimeout(this.schedule, 5000);
+    if(this.state.repos.length > 0){
+      this.setState(
+        {repos, loading: false},
+        () => this.props.navigation.navigate('Repository', { repos: this.state.repos })
+      );
+      
+      return;
+    }
+
+    const response = await fetch('https://api.github.com/users/longyarnz/repos');
+    let repos = await response.json();
+
+    repos = repos.map(repo => ({
+      id: repo.id,
+      name: repo.name,
+      owner: repo.owner.login,
+      description: repo.description,
+      forks: repo.forks_count,
+      stargazers: repo.stargazers_count,
+      pushedAt: this.timestamp(repo.pushed_at),
+      language: repo.language
+    }));
+
+    this.setState(
+      {repos, loading: false},
+      () => this.props.navigation.navigate('Repository', { repos: repos })
+    );
   }
 
   componentWillUnmount = () => {

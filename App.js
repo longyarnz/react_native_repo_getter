@@ -4,8 +4,8 @@ import WelcomeScreen from './src/WelcomeScreen';
 import ListScreen from './src/ListScreen';
 
 const App = createStackNavigator({
-  Repository: {screen: ListScreen},
   Welcome: {screen: WelcomeScreen},
+  Repository: {screen: ListScreen},
 });
 
 export default App;

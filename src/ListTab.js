@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
 import { Text, View, FlatList, AppRegistry, StyleSheet } from 'react-native'
-import Repos from '../assets/repos.json';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-
-const timestamp = stamp => {
-  const date = stamp.toString().slice(0, 10);
-  const time = stamp.toString().slice(11, -1);
-  return `${date} (${time})`;
-}
 
 const Tile = props => (
   <View style={styles.footer}>
@@ -17,23 +10,8 @@ const Tile = props => (
 );
 
 export default class ListTab extends Component {
-  get _formatJson(){
-    const repos = Repos.map(repo => ({
-      id: repo.id,
-      name: repo.name,
-      owner: repo.owner.login,
-      description: repo.description,
-      forks: repo.forks_count,
-      stargazers: repo.stargazers_count,
-      pushedAt: timestamp(repo.pushed_at),
-      language: repo.language
-    }));
-
-    return repos;
-  }
-
   _renderTiles = ({ item: repo, index }) => {
-    const extraStyle = index === this._formatJson.length - 1 ? {marginBottom: 20} : null;
+    const extraStyle = index === this.props.repos.length - 1 ? {marginBottom: 20} : null;
     const shape = `alpha-${repo.language.toLowerCase().slice(0, 1)}-box`;
     return (
       <View style={[styles.tile, extraStyle]}>
@@ -52,9 +30,11 @@ export default class ListTab extends Component {
   render() {
     return (
       <FlatList
+        keyboardDismissMode="interactive"
         renderItem={this._renderTiles}
-        data={this._formatJson}
+        data={this.props.repos}
         keyExtractor={item => item.id.toString()}
+        style={{paddingBottom: 10,}}
       />
     )
   }
