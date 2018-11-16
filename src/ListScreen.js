@@ -32,14 +32,14 @@ export default class ListScreen extends Component {
 
   handleFilter = () => {
     let repos = this.props.navigation.getParam('repos');
-    repos = repos.filter(repo => repo.language.toLowerCase() === 'javascript');
+    repos = repos.filter(repo => repo.language && repo.language.toLowerCase() === 'javascript');
     this.setState({ search: false, repos, isRepoDirty: true });
   }
 
   static getDerivedStateFromProps(props, state) {
     let repos = state.repos.length > 0 ? state.repos : props.navigation.getParam('repos');
     if(state.search){
-      repos = repos.filter(repo => repo.name.toLowerCase() === state.search.toLowerCase());
+      repos = repos.filter(repo => repo.name && repo.name.toLowerCase() === state.search.toLowerCase());
     }
     return { repos };
   }

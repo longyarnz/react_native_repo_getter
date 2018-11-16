@@ -20,5 +20,6 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "git_link": "https://api.github.com/users/emrys8/repos"
 }

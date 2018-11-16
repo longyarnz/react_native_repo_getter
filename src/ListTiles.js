@@ -13,7 +13,7 @@ const Tile = props => (
 export default class ListTiles extends Component {
   _renderTiles = ({ item: repo, index }) => {
     const extraStyle = index === this.props.repos.length - 1 ? { marginBottom: 20 } : null;
-    const shape = `alpha-${repo.language.toLowerCase().slice(0, 1)}-box`;
+    const shape = repo.language ? `alpha-${repo.language && repo.language.toLowerCase().slice(0, 1)}-box` : 'help';
     return (
       <View style={[styles.tile, extraStyle]}>
         <Text style={styles.header}>{repo.name}</Text>

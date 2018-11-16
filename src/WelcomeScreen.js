@@ -3,6 +3,7 @@ import {
   StyleSheet, Text, View, ActivityIndicator, AppRegistry
 } from 'react-native';
 import Repos from '../assets/repos.json';
+import Package from '../package.json';
 
 export default class WelcomeScreen extends Component {
   state = {
@@ -38,9 +39,6 @@ export default class WelcomeScreen extends Component {
   }
 
   async componentDidMount() {
-    // this.timeout = setTimeout(() => {
-    //   this.schedule();
-    // }, 1000);
     if (this.state.repos.length > 0) {
       this.setState(
         { repos, loading: false },
@@ -52,7 +50,7 @@ export default class WelcomeScreen extends Component {
 
     let repos = [];
     try {
-      const response = await fetch('https://api.github.com/users/longyarnz/repos');
+      const response = await fetch(Package.git_link);
 
       if (response.status === 200) {
         repos = await response.json();
@@ -66,6 +64,7 @@ export default class WelcomeScreen extends Component {
           pushedAt: this.timestamp(repo.pushed_at),
           language: repo.language
         }));
+        console.log(repos);
       }
 
       else {
@@ -73,6 +72,7 @@ export default class WelcomeScreen extends Component {
       }
     }
     catch(err){
+      console.log(err);
       repos = Repos;
     }
 
