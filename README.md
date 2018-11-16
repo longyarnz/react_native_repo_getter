@@ -11,7 +11,7 @@ This is a Git Repo Getter App.
 This App was built using [React-native](https://facebook.github.io/react-native)
 
 ## Using The App
-You will need Node, the React Native command line interface, an android emulator or a connected device and Android Studio to run the app. For more information, checkout this [Link.](https://facebook.github.io/react-native/docs/getting-started)
+You will need Node, the React Native command line interface, an android emulator or a connected device, Android Studio and good internet connection to run the app. For more information, checkout this [Link.](https://facebook.github.io/react-native/docs/getting-started)
 
 Connect an android device to your machine and turn on USB debugging option, so as to be able to run the app on your device.
 
