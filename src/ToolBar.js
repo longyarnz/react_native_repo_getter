@@ -27,7 +27,7 @@ export default class ToolBar extends Component {
     const shape = this.state.counter % 2 === 0 ? 'magnify' : 'close';
     return (
       [
-        <ActionButton key={1} name="sort" onPress={() => console.log('sort')} />,
+        <ActionButton key={1} name="sort" onPress={this.props.filter} />,
         <ActionButton key={0} name={shape} onPress={this.toggle} />,
       ]
     )

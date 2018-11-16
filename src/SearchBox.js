@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, AppRegistry, TouchableHighlight, TextInput, Animated, StyleSheet } from 'react-native'
+import { Text, View, AppRegistry, TextInput, Animated, StyleSheet } from 'react-native'
 
-export default class SearchView extends Component {
+export default class SearchBox extends Component {
   state = {
     text: '',
   }
@@ -44,4 +44,4 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('SearchView', () => SearchView);
+AppRegistry.registerComponent('SearchBox', () => SearchBox);

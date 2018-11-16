@@ -10,9 +10,9 @@ const Tile = props => (
   </View>
 );
 
-export default class ListTab extends Component {
+export default class ListTiles extends Component {
   _renderTiles = ({ item: repo, index }) => {
-    const extraStyle = index === this.props.repos.length - 1 ? {marginBottom: 20} : null;
+    const extraStyle = index === this.props.repos.length - 1 ? { marginBottom: 20 } : null;
     const shape = `alpha-${repo.language.toLowerCase().slice(0, 1)}-box`;
     return (
       <View style={[styles.tile, extraStyle]}>
@@ -24,6 +24,11 @@ export default class ListTab extends Component {
           <Tile icon="star-circle" value={repo.stargazers} />
           <Tile icon="clock-outline" value={repo.pushedAt} />
         </View>
+        <ShouldRender if={this.props.isRepoDirty && index === this.props.repos.length - 1}>
+          <View style={{marginTop: 10}}>
+            <Button title="Restore All Repos" onPress={this.props.restoreAllRepos} />
+          </View>
+        </ShouldRender>
       </View>
     )
   }
@@ -37,7 +42,7 @@ export default class ListTab extends Component {
             renderItem={this._renderTiles}
             data={this.props.repos}
             keyExtractor={item => item.id.toString()}
-            style={{paddingBottom: 10,}}
+            style={{ paddingBottom: 10, }}
           />
         </ShouldRender>
 
@@ -106,4 +111,4 @@ const styles = StyleSheet.create({
   }
 })
 
-AppRegistry.registerComponent('ListTab', () => ListTab);
+AppRegistry.registerComponent('ListTiles', () => ListTiles);
