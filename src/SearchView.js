@@ -3,21 +3,21 @@ import { Text, View, AppRegistry, TouchableHighlight, TextInput, Animated, Style
 
 export default class SearchView extends Component {
   state = {
-    text: ''
+    text: '',
   }
 
   handleSubmit = () => {
     const { text } = this.state;
-    this.setState({text: ''}, () => this.props.search(text));
+    this.setState({text: '', placeholder: 'To go back, click the × icon'}, () => this.props.search(text));
   }
 
   render() {
     return (
-      <Animated.View style={[styles.container, {marginTop: this.props.marginTop }]}>
+      <Animated.View style={[styles.container, { ...this.props.offsets }]}>
         <View>
           <TextInput
             style={styles.input}
-            placeholder="Type here to search repositories"
+            placeholder='Type here to search repositories'
             onChangeText={(text) => this.setState({text})}
             onSubmitEditing={this.handleSubmit}
             clearButtonMode="while-editing"

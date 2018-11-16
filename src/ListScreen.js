@@ -58,13 +58,20 @@ export default class ListScreen extends Component {
   render() {
     const marginTop = this.slideOffset.interpolate({
       inputRange: [0, 1],
-      outputRange: [-60, 0],
+      outputRange: [-120, 0],
     });
+
+    const marginBottom = this.slideOffset.interpolate({
+      inputRange: [0, 1],
+      outputRange: [60, 0],
+    });
+
+    const isEmpty = this.props.navigation.getParam('empty');
 
     return (
       <View style={{flex: 1}}>
-        <SearchView marginTop={marginTop} search={this.handleSearch} />
-        <ListTab repos={this.state.repos} />
+        <SearchView offsets={{marginTop, marginBottom}} search={this.handleSearch} />
+        <ListTab repos={this.state.repos} close={() => this.slideDown(1, 0)} isEmpty={isEmpty} />
       </View>
     )
   }

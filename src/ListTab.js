@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Text, View, FlatList, AppRegistry, StyleSheet } from 'react-native'
+import { Text, View, FlatList, AppRegistry, StyleSheet, Button } from 'react-native'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
+import ShouldRender from './ShouldRender';
 
 const Tile = props => (
   <View style={styles.footer}>
@@ -28,18 +29,31 @@ export default class ListTab extends Component {
   }
 
   render() {
-    return this.props.repos.length > 0 ? (
-      <FlatList
-        keyboardDismissMode="interactive"
-        renderItem={this._renderTiles}
-        data={this.props.repos}
-        keyExtractor={item => item.id.toString()}
-        style={{paddingBottom: 10,}}
-      />
-    ) : (
-      <View style={styles.empty}>
-        <Text style={styles.emptyText}>NO ITEMS MATCH YOUR SEARCH</Text>
-      </View>
+    return (
+      <>
+        <ShouldRender if={this.props.repos.length > 0}>
+          <FlatList
+            keyboardDismissMode="interactive"
+            renderItem={this._renderTiles}
+            data={this.props.repos}
+            keyExtractor={item => item.id.toString()}
+            style={{paddingBottom: 10,}}
+          />
+        </ShouldRender>
+
+        <ShouldRender if={this.props.repos.length === 0 && !this.props.isEmpty}>
+          <View style={styles.empty}>
+            <Text style={styles.emptyText}>NO ITEMS MATCH YOUR SEARCH</Text>
+            <Text style={[styles.emptyText, styles.thin]}>To reset list, click the × Icon</Text>
+          </View>
+        </ShouldRender>
+
+        <ShouldRender if={this.props.isEmpty}>
+          <View style={styles.empty}>
+            <Text style={styles.emptyText}>THE USER's REPOSITORY IS EMPTY</Text>
+          </View>
+        </ShouldRender>
+      </>
     )
   }
 }
@@ -76,14 +90,19 @@ const styles = StyleSheet.create({
   },
   empty: {
     flex: 2,
-    justifyContent: 'space-around',
+    justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'stretch'
   },
   emptyText: {
     fontWeight: '900',
     color: '#aaa',
-    fontSize: 18
+    fontSize: 18,
+    marginBottom: 20
+  },
+  thin: {
+    fontWeight: '100',
+    fontSize: 14
   }
 })
 
